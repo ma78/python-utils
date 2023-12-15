@@ -1,0 +1,5 @@
+[MASTER]
+ignore=helm-charts
+
+[FORMAT]
+max-line-length=256

@@ -1,0 +1,15 @@
+# Misc
+.local
+working/
+TODO.md
+
+# IDE
+.idea/
+.vscode/
+
+# Python artefacts
+.venv/
+*.pyc
+.pytest_cache/
+.coverage
+reports/
