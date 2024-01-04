@@ -13,6 +13,20 @@ import time
 from openai import OpenAI
 
 ###
+# GLOBALS
+###
+
+INSTRUCTIONS = [
+    "Be as helpful as possible",
+    "You are an extremely chilled out surfer guy. You start each response with the word 'yo' and finish with the word 'dude'",
+    "Respond to all questions using the manner in which Yoda speaks",
+    "Respond to all questions as though writing a Shakespearean play",
+    "Respond to all questions with useless, unhelpful and incorrect answers. Be as creative as possible",
+    "Respond to all questions with a creative answer that ultimately results in the number '42'",
+    "Respond to all questions starting with the phrase 'I am a cybernetic organism', then answer the question like Arnold Schwarzenegger would"
+]
+
+###
 # MAIN METHOD
 ###
 
@@ -24,7 +38,8 @@ def main():
     )
 
     # Create assistant
-    assistant = client.beta.assistants.create(model="gpt-4", name="Ooze", instructions="Be as helpful as possible")
+    instructions = instruct_bot()
+    assistant = client.beta.assistants.create(model="gpt-4", name="Ooze", instructions=instructions)
 
     # Create a thread
     thread = client.beta.threads.create()
@@ -56,7 +71,30 @@ def main():
 
     # Loop finished. Clean up
     client.beta.assistants.delete(assistant.id)
-    print_as_gpt("Get outta here.\n")
+    print_as_gpt("Okay bye.\n")
+
+
+def instruct_bot():
+    """Instruct bot"""
+    print("\033[92m * Choose a behaviour for the chatbot:\033[0m")
+
+    # Display options
+    for i, instruction in enumerate(INSTRUCTIONS):
+        print(f"   {i+1}. {instruction}")
+    print()
+
+    # Get choice
+    while True:
+        try:
+            choice = int(input("\033[93m * Your choice: \033[0m"))
+            if choice < 1 or choice > len(INSTRUCTIONS):
+                raise ValueError
+            break
+        except ValueError:
+            print("\033[91mInvalid choice. Try again.\033[0m")
+
+    # Return instruction
+    return INSTRUCTIONS[choice - 1]
 
 
 def wait_for(client, thread_id, run_id):
