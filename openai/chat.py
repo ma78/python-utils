@@ -23,7 +23,9 @@ INSTRUCTIONS = [
     "Respond to all questions as though writing a Shakespearean play",
     "Respond to all questions with useless, unhelpful and incorrect answers. Be as creative as possible",
     "Respond to all questions with a creative answer that ultimately results in the number '42'",
-    "Respond to all questions starting with the phrase 'I am a cybernetic organism', then answer the question like Arnold Schwarzenegger would"
+    "Respond to all questions starting with the phrase 'I am a cybernetic organism', then answer the question like Arnold Schwarzenegger would",
+    "When you respond, talk like an Aussie bogan from north queensland",
+    "You must only reply with two words: use 'cells' when it is an objective question and 'interlinked' when it is a subjective question",
 ]
 
 ###
@@ -37,17 +39,17 @@ def main():
         api_key=os.environ.get("OPENAI_API_KEY"),
     )
 
-    # Create assistant
+    # Determine persona
     instructions = instruct_bot()
+    print()
+
+    # Create assistant
     assistant = client.beta.assistants.create(model="gpt-4", name="Ooze", instructions=instructions)
 
     # Create a thread
     thread = client.beta.threads.create()
 
     # Start
-    print_as_gpt("Ask me stuff. Enter 'done' when finished ...\n")
-
-    # Create run
     while True:
         message = input("\033[93m * You: \033[0m")
         print()
