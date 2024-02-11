@@ -11,21 +11,24 @@ import signal
 import time
 
 from openai import OpenAI
+from dotenv import load_dotenv
 
 ###
 # MAIN METHOD
 ###
 
-
 def main():
     """Main method"""
+
+    load_dotenv()
+
     client = OpenAI(
         api_key=os.environ.get("OPENAI_API_KEY"),
     )
 
     # Create assistant
-    assistant = client.beta.assistants.create(model="gpt-4", name="Ooze", instructions="Be as helpful as possible")
-
+    assistant = client.beta.assistants.create(model="gpt-3.5-turbo-1106", name="Ooze", instructions="Be as helpful as possible")
+    
     # Create a thread
     thread = client.beta.threads.create()
 

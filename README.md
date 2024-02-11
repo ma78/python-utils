@@ -39,9 +39,10 @@ Using a virtualenv, or otherwise, do the following to run the script:
 # Install openai 
 . .venv/bin/activate  # if you have a virtualenv
 pip3 install openai
+pip3 install dotenv
 
 # Run script
-export OPENAI_API_KEY=sk-P123...
+Place OPENAI_API_KEY=<my long API key> into a .env file in the package home directory.
 python3 chat.py
 ```
 
